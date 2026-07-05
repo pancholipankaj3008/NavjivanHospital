@@ -5,7 +5,6 @@ import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
 const rawPort = process.env.PORT || "5173";
-
 const port = Number(rawPort);
 
 if (Number.isNaN(port) || port <= 0) {
@@ -16,6 +15,7 @@ const basePath = process.env.BASE_PATH || "/";
 
 export default defineConfig({
   base: basePath,
+
   plugins: [
     react(),
     tailwindcss(),
@@ -34,10 +34,16 @@ export default defineConfig({
         ]
       : []),
   ],
+
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "src"),
-      "@assets": path.resolve(import.meta.dirname, "..", "..", "attached_assets"),
+      "@assets": path.resolve(
+        import.meta.dirname,
+        "..",
+        "..",
+        "attached_assets",
+      ),
       "@tanstack/react-query": path.resolve(
         import.meta.dirname,
         "node_modules",
@@ -47,11 +53,14 @@ export default defineConfig({
     },
     dedupe: ["react", "react-dom"],
   },
+
   root: path.resolve(import.meta.dirname),
+
   build: {
-    outDir: path.resolve(import.meta.dirname, "dist/public"),
+    outDir: "dist",
     emptyOutDir: true,
   },
+
   server: {
     port,
     host: "0.0.0.0",
@@ -61,6 +70,7 @@ export default defineConfig({
       deny: ["**/.*"],
     },
   },
+
   preview: {
     port,
     host: "0.0.0.0",
